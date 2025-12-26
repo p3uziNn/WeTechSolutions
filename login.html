@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login — We Tech Solutions</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: rgba(255, 255, 255, 0.05);
+      --muted: rgba(255, 255, 255, 0.6);
+      --white: #ffffff;
+      --purple-1: #7b61ff;
+      --purple-2: #5e17eb;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, rgba(94, 23, 235, 0.25), transparent 70%), #000;
+      font-family: 'Poppins', system-ui, sans-serif;
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 380px;
+      padding: 40px 38px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      text-align: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+
+    .logo span {
+      font-weight: 700;
+      font-size: 18px;
+      background: linear-gradient(90deg, var(--purple-1), var(--purple-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    label {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--white);
+      outline: none;
+      transition: background .2s ease;
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 0 2px rgba(94, 23, 235, 0.4);
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--purple-1), var(--purple-2));
+      color: var(--white);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(94, 23, 235, 0.4);
+    }
+
+    .extras {
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .extras a {
+      color: var(--purple-1);
+      text-decoration: none;
+    }
+
+    .extras a:hover {
+      color: var(--white);
+    }
+
+    .back-btn {
+      margin-top: 12px;
+      display: inline-block;
+      background: none;
+      border: 1px solid var(--purple-1);
+      border-radius: 999px;
+      padding: 10px 18px;
+      color: var(--purple-1);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .2s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--purple-1);
+      color: var(--white);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <img src="IMG/LOGO COM BORDAS.png" alt="We Tech Solutions">
+      <span>We Tech Solutions</span>
+    </div>
+    <h2>Bem-vindo de volta</h2>
+
+    <!-- FORM CORRIGIDO -->
+    <form action="/login" method="POST">
+      <div>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="seuemail@empresa.com" required>
+      </div>
+      <div>
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <div class="extras">
+      <p>Não tem conta? <a href="cadastro.html">Criar agora</a></p>
+      <a href="index.html" class="back-btn">← Voltar à Página Inicial</a>
+    </div>
+  </div>
+</body>
+<script>
+  document.querySelector("form").addEventListener("submit", async function(event) {
+      event.preventDefault(); // impede reload da página
+  
+      const form = event.target;
+      const dados = new FormData(form);
+  
+      const resp = await fetch("/login", {
+          method: "POST",
+          body: dados
+      });
+  
+      const resultado = await resp.json();
+  
+      if (resultado.sucesso) {
+          window.location.href = "index.html"; // redireciona após login
+      } else {
+          alert(resultado.erro);
+      }
+  });
+  </script>  
+</html>

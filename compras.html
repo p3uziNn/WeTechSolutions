@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizar Compra</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* ======================================
+   VARIÁVEIS
+====================================== */
+:root {
+  --bg: #0a0a0a;
+  --surface: rgba(255,255,255,0.06);
+  --muted: rgba(255,255,255,0.6);
+  --white: #fff;
+  --purple-1: #7b61ff;
+  --purple-2: #5e17eb;
+  --radius: 18px;
+}
+
+/* ======================================
+   GLOBAL
+====================================== */
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  font-family: "Poppins", sans-serif;
+  color: var(--white);
+}
+
+/* ======================================
+   HEADER (IDÊNTICO AO INDEX)
+====================================== */
+header {
+  width: 100%;
+  padding: 16px 35px;
+  background: #00000050;
+  border-bottom: 1px solid #7b61ff40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-img {
+  height: 48px;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--purple-1);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 500;
+  transition: .2s;
+}
+
+nav a:hover {
+  color: var(--white);
+}
+
+/* Botões */
+.btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: .2s;
+}
+
+.btn.primary {
+  background: var(--purple-1);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: var(--purple-2);
+}
+
+.btn.ghost {
+  border: 1px solid var(--purple-1);
+  color: var(--purple-1);
+}
+
+.btn.ghost:hover {
+  background: var(--purple-1);
+  color: #fff;
+}
+
+.btn.danger {
+  background: #ff4444;
+  color: white !important;
+}
+
+.btn.danger:hover {
+  background: #cc0000;
+}
+
+/* ✔ Novo botão pequeno (Voltar) */
+.btn.small {
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 12px;
+  background: var(--purple-1);
+  color: white;
+  transition: .2s;
+}
+
+.btn.small:hover {
+  background: var(--purple-2);
+  transform: scale(1.05);
+}
+
+/* Área do usuário */
+#user-box {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ======================================
+   MOBILE MENU
+====================================== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: var(--white);
+  border-radius: 3px;
+  transition: .3s;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  width: 220px;
+  background: rgba(0,0,0,0.85);
+  padding: 20px;
+  backdrop-filter: blur(6px);
+  border-left: 1px solid #7b61ff40;
+  border-bottom: 1px solid #7b61ff40;
+}
+
+.mobile-menu a {
+  padding: 12px 0;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid #ffffff15;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+/* ======================================
+   CONTEÚDO
+====================================== */
+.container {
+  width: 95%;
+  max-width: 1250px;
+  margin: 40px auto;
+  display: flex;
+  gap: 35px;
+}
+
+.card {
+  background: var(--surface);
+  padding: 25px;
+  border-radius: var(--radius);
+  width: 50%;
+  border: 1px solid #7b61ff20;
+  box-shadow: 0 0 20px #7b61ff15;
+  backdrop-filter: blur(6px);
+  transition: .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 25px #7b61ff35;
+}
+
+.product-img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  background: #ffffff08;
+  border-radius: var(--radius);
+  padding: 10px;
+}
+
+.price {
+  font-size: 28px;
+  color: var(--purple-1);
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0 18px;
+  border: 1px solid #7b61ff20;
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.07);
+  color: var(--white);
+  font-size: 16px;
+}
+
+input:focus {
+  border-color: var(--purple-1);
+  outline: none;
+  box-shadow: 0 0 10px #7b61ff40;
+}
+
+button {
+  width: 100%;
+  background: linear-gradient(90deg, var(--purple-2), var(--purple-1));
+  border: none;
+  padding: 16px;
+  font-size: 18px;
+  color: var(--white);
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  box-shadow: 0 0 20px #7b61ff80;
+  transform: translateY(-3px);
+}
+
+/* ======================================
+   FOOTER (IDÊNTICO AO INDEX)
+====================================== */
+footer {
+  margin-top: 60px;
+  padding: 25px;
+  text-align: center;
+  background: #00000040;
+  border-top: 1px solid #7b61ff40;
+  color: var(--muted);
+}
+
+/* ======================================
+   RESPONSIVO
+====================================== */
+@media (max-width: 900px) {
+
+  nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+  }
+}
+</style>
+<header>
+  <div class="brand">
+    <img src="IMG/LOGO COM BORDAS.png" alt="Logo We Tech Solutions" class="logo-img">
+    <div>
+      <div class="brand-name">We Tech Solutions</div>
+      <div class="brand-sub"></div>
+    </div>
+  </div>
+
+  <nav aria-label="Navegação Principal">
+    <a href="index.html" style="color:var(--white)">Home</a>
+    <a href="softwares.html">Softwares</a>
+    <a href="planilhas.html">Planilhas</a>
+    <a href="sobre.html">Sobre Nós</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+
+  <div class="ctas">
+    <a href="login.html" class="btn ghost" id="btn-sign">Entrar</a>
+    <a href="cadastro.html" class="btn primary" id="btn-demo">Cadastrar-se</a>
+  </div>
+  
+  <div id="user-box" style="display:none; gap: 10px; align-items: center;">
+    <span id="usuario-nome" style="color:white; font-weight:600;"></span>
+    <a id="btn-sair" class="btn danger" style="cursor:pointer;">Sair</a>
+  </div>
+
+  <!-- Botão Hambúrguer (Mobile) -->
+  <button id="hamburger" class="hamburger" aria-label="Abrir Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Menu Mobile -->
+  <nav id="mobile-menu" class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="softwares.html">Softwares</a>
+    <a href="planilhas.html">Planilhas</a>
+    <a href="sobre.html">Sobre Nós</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+</header>
+
+<!-- ======================================
+     CONTEÚDO
+====================================== -->
+<div class="container">
+
+  <div class="card">
+      <img id="product-img" class="product-img" src="" alt="Produto">
+      <h2 id="product-name">Carregando...</h2>
+      <p id="product-desc">Descrição do produto.</p>
+      <div class="price" id="product-price">R$ 0,00</div>
+  </div>
+
+  <div class="card">
+      <h2>Seus Dados</h2>
+
+      <input id="nome" type="text" placeholder="Nome completo">
+      <input id="cpf" type="text" placeholder="CPF">
+      <input id="telefone" type="text" placeholder="Telefone">
+      <input id="estado" type="text" placeholder="Estado">
+      <input id="cidade" type="text" placeholder="Cidade">
+      <input id="endereco" type="text" placeholder="Endereço completo">
+
+      <button onclick="finalizarCompra()">Finalizar Compra</button>
+  </div>
+
+</div>
+
+<!-- ======================================
+     FOOTER
+====================================== -->
+<footer>
+  <p>© 2025 We Tech Solutions — Todos os direitos reservados.</p>
+</footer>
+
+<script>
+/* ============================================================
+   SISTEMA DE LOGIN (Mostrar nome + botão sair)
+============================================================ */
+function getCookie(name) {
+  return document.cookie
+      .split("; ")
+      .find(row => row.startsWith(name + "="))
+      ?.split("=")[1];
+}
+
+const loginBtn = document.getElementById("btn-sign");
+const cadastroBtn = document.getElementById("btn-demo");
+const userBox = document.getElementById("user-box");
+const logoutBtn = document.getElementById("btn-sair");
+
+const usuario = getCookie("user");
+
+if (usuario) {
+  if (loginBtn) loginBtn.style.display = "none";
+  if (cadastroBtn) cadastroBtn.style.display = "none";
+
+  userBox.style.display = "flex";
+  document.getElementById("usuario-nome").textContent = usuario;
+}
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    document.cookie = "user=; path=/; max-age=0";
+    location.reload();
+  });
+}
+
+/* ============================================================
+   PRODUTOS (SEU CÓDIGO)
+============================================================ */
+const produtos = [
+    { id: "financeiro", nome: "Controle Financeiro Empresarial", preco: 189.00, desc: "Sistema completo de gestão financeira.", img: "IMG/Controle financeiro Empresarial.png" },
+    { id: "estoque", nome: "Gestão de Estoque", preco: 197.00, desc: "Controle inteligente de estoque e logística.", img: "https://zeplanilha.com/wp-content/uploads/2020/05/image_meta_estoque.webp" },
+    { id: "vendas", nome: "Controle de Vendas", preco: 207.00, desc: "Registre, acompanhe e analise suas vendas.", img: "https://www.senior.com.br/lp/planilhas/controle-de-vendas/images/thumb_planilha.png" },
+    { id: "projetos", nome: "Gestão de Projetos", preco: 198.00, desc: "Gerencie equipes, prazos e tarefas.", img: "IMG/gestao-de-projetos.png" },
+    { id: "marketing", nome: "Planejamento de Marketing", preco: 179.00, desc: "Planeje estratégias, campanhas e redes sociais.", img: "img/Marketing-plan-template.webp" },
+    { id: "rh", nome: "Gestão de Recursos Humanos", preco: 217.00, desc: "Gestão de colaboradores, folha e desempenho.", img: "IMG/gestão de recursos humanos.webp" },
+    { id: "ged", nome: "GED — Gestão Eletrônica de Documentos", preco: 227.00, desc: "Organize documentos de forma automatizada.", img: "https://www.instasoft.com.br/assets/base/img/content/softwares/ged-tela-principal-2.png" },
+    { id: "gprojetos", nome: "Gerenciador de Projetos", preco: 297.00, desc: "Controle completo de projetos e equipes.", img: "https://s2-techtudo.glbimg.com/Dq-s9ZSX0WWvX9lrwUjKu4An758=/31x39:1271x845/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/v/n/9JABBQSEu2pULE4RyWcg/clickup.png" },
+    { id: "logistica", nome: "Gestor de Estoque & Logística", preco: 247.00, desc: "Controle avançado de logística e estoque.", img: "https://www.nomus.com.br/blog-industrial/wp-content/uploads/2022/01/exemplo-de-movimentacao-de-estoque-no-sistema-de-gestao-de-estoque.jpg" },
+    { id: "rhfolha", nome: "Sistema de RH & Folha", preco: 257.00, desc: "Gerenciamento completo de RH e folha.", img: "https://mindsight.com.br/wp-content/uploads/2023/04/Captura-de-tela-2025-02-24-161954.png" },
+    { id: "finpro", nome: "Financeiro & Contabilidade Pro", preco: 367.00, desc: "Sistema financeiro profissional.", img: "https://www.sistemagratis.com.br/images/Financeiro.png" },
+    { id: "erp", nome: "ERP — Sistema Integrado", preco: 497.00, desc: "Plataforma completa para empresas.", img: "https://docs.domtec.com.br/homologacao/historico-versao-branch/os-005280-2.jpg" }
+];
+
+const url = new URLSearchParams(window.location.search);
+const produtoID = url.get("produto");
+const produto = produtos.find(p => p.id === produtoID);
+
+if (!produto) {
+    document.getElementById("product-name").innerText = "Produto não encontrado";
+} else {
+    document.getElementById("product-name").innerText = produto.nome;
+    document.getElementById("product-price").innerText = "R$ " + produto.preco.toFixed(2).replace(".", ",");
+    document.getElementById("product-desc").innerText = produto.desc;
+    document.getElementById("product-img").src = produto.img;
+}
+
+/* ============================================================
+   FINALIZAR COMPRA
+============================================================ */
+async function finalizarCompra() {
+
+    const nome = document.getElementById("nome").value;
+    const cpf = document.getElementById("cpf").value;
+    const telefone = document.getElementById("telefone").value;
+    const estado = document.getElementById("estado").value;
+    const cidade = document.getElementById("cidade").value;
+    const endereco = document.getElementById("endereco").value;
+
+    if (!nome || !cpf || !telefone || !estado || !cidade || !endereco) {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    const dados = {
+        nome,
+        cpf,
+        telefone,
+        estado,
+        cidade,
+        endereco,
+        produto: produto.nome,
+        preco: produto.preco
+    };
+
+    const resp = await fetch("/finalizar_compra", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    });
+
+    const resultado = await resp.json();
+
+    if (resultado.redirect) {
+        alert("Compra realizada com sucesso!");
+        window.location.href = resultado.redirect;
+    } else {
+        alert("Erro ao registrar compra.");
+    }
+}
+const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobile-menu");
+  
+    const savedState = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("menu="))
+      ?.split("=")[1];
+  
+    if (savedState === "open") {
+      hamburger.classList.add("active");
+      mobileMenu.classList.add("open");
+    }
+  
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      mobileMenu.classList.toggle("open");
+  
+      const state = mobileMenu.classList.contains("open") ? "open" : "closed";
+      document.cookie = `menu=${state}; path=/; max-age=${7 * 24 * 60 * 60}`;
+    });
+</script>
+
+</body>
+</html>

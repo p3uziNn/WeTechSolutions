@@ -1,0 +1,26 @@
+[
+    {
+        "produto": "Controle Financeiro Empresarial",
+        "preco": 189,
+        "comprador": {
+            "nome": "PondyOchako",
+            "cpf": "2103948093425782",
+            "telefone": "43159874309567304986",
+            "estado": "fdhwgfhgfjh",
+            "cidade": "gfjhfjdhgj",
+            "endereco": "hjdhgjdghj"
+        }
+    },
+    {
+        "produto": "GED — Gestão Eletrônica de Documentos",
+        "preco": 227,
+        "comprador": {
+            "nome": "PondyOchako",
+            "cpf": "2103948093425782",
+            "telefone": "43159874309567304986",
+            "estado": "fdhwgfhgfjh",
+            "cidade": "gfjhfjdhgj",
+            "endereco": "hjdhgjdghj"
+        }
+    }
+]

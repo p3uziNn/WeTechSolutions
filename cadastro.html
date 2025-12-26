@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Criar Conta — We Tech Solutions</title>
+  <style>
+    :root{
+      --bg: #000000;
+      --surface: rgba(255,255,255,0.05);
+      --muted: rgba(255,255,255,0.6);
+      --white: #ffffff;
+      --purple-1: #7b61ff;
+      --purple-2: #5e17eb;
+      --radius: 20px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      height:100vh;
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:radial-gradient(circle at top, rgba(94,23,235,0.25), transparent 70%), #000;
+      font-family:'Poppins', system-ui, sans-serif;
+      color:var(--white);
+      overflow:hidden;
+    }
+
+    .register-container{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      max-width:420px;
+      padding:40px 38px;
+      border-radius:var(--radius);
+      background:var(--surface);
+      backdrop-filter:blur(14px);
+      box-shadow:0 0 40px rgba(0,0,0,0.5);
+      border:1px solid rgba(255,255,255,0.06);
+      animation:fadeIn .8s ease;
+      text-align:center;
+    }
+
+    @keyframes fadeIn {
+      from {opacity:0; transform:translateY(10px);}
+      to {opacity:1; transform:none;}
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin-bottom:20px;
+    }
+
+    .logo img{
+      height:50px;
+      width:auto;
+    }
+
+    .logo span{
+      font-weight:700;
+      font-size:18px;
+      background:linear-gradient(90deg,var(--purple-1),var(--purple-2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    h2{
+      font-size:22px;
+      margin-bottom:20px;
+    }
+
+    form{
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    label{
+      font-size:13px;
+      color:var(--muted);
+      text-align:left;
+    }
+
+    input{
+      width:100%;
+      background:rgba(255,255,255,0.08);
+      border:none;
+      border-radius:10px;
+      padding:12px 14px;
+      font-size:14px;
+      color:var(--white);
+      outline:none;
+      transition:background .2s ease;
+    }
+
+    input:focus{
+      background:rgba(255,255,255,0.15);
+      box-shadow:0 0 0 2px rgba(94,23,235,0.4);
+    }
+
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:12px;
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+      background:linear-gradient(90deg,var(--purple-1),var(--purple-2));
+      color:var(--white);
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+
+    .btn:hover{
+      transform:scale(1.05);
+      box-shadow:0 8px 20px rgba(94,23,235,0.4);
+    }
+
+    .extras{
+      margin-top:16px;
+      font-size:13px;
+    }
+
+    .extras a{
+      color:var(--purple-1);
+      text-decoration:none;
+    }
+
+    .extras a:hover{
+      color:var(--white);
+    }
+
+    .glow{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:600px;
+      height:600px;
+      background:radial-gradient(ellipse at center, rgba(123,97,255,0.12) 0%, rgba(0,0,0,0) 70%);
+      filter:blur(80px);
+      z-index:-1;
+    }
+
+    .back-btn {
+      margin-top:12px;
+      display:inline-block;
+      background:none;
+      border:1px solid var(--purple-1);
+      border-radius:999px;
+      padding:10px 18px;
+      color:var(--purple-1);
+      font-size:13px;
+      font-weight:600;
+      text-decoration:none;
+      transition:all .2s ease;
+    }
+
+    .back-btn:hover {
+      background:var(--purple-1);
+      color:var(--white);
+    }
+
+    /* ------------------------- */
+    /* ESTILO DO GERADOR E OLHO */
+    /* ------------------------- */
+    .senha-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .senha-btn {
+      position: absolute;
+      right: 50px;
+      border: none;
+      background: none;
+      color: var(--muted);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .eye-btn {
+      position: absolute;
+      right: 15px;
+      border: none;
+      background: none;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .eye-btn:hover,
+    .senha-btn:hover {
+      color: var(--white);
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="register-container">
+    <div class="logo">
+      <img src="IMG/LOGO COM BORDAS.png" alt="We Tech Solutions">
+      <span>We Tech Solutions</span>
+    </div>
+    <h2>Criar sua conta</h2>
+
+    <form action="/cadastro" method="POST">
+
+      <div>
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+      </div>
+
+      <div>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="seuemail@empresa.com" required>
+      </div>
+
+      <!-- SENHA COM GERADOR + OLHO -->
+      <div>
+        <label for="senha">Senha</label>
+
+        <div class="senha-container">
+          <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required minlength="5">
+
+          <button type="button" class="senha-btn" onclick="gerarSenha()">Gerar</button>
+          <button type="button" class="eye-btn" onclick="toggleSenha()">👁</button>
+        </div>
+      </div>
+
+      <div>
+        <label for="confirmar">Confirmar senha</label>
+        <input type="password" id="confirmar" name="confirmar" placeholder="Repita sua senha" required>
+      </div>
+
+      <button type="submit" class="btn">Cadastrar</button>
+    </form>
+
+    <div class="extras">
+      <p>Já tem uma conta? <a href="login.html">Entrar</a></p>
+      <a href="index.html" class="back-btn">← Voltar à Página Inicial</a>
+    </div>
+  </div>
+
+<script>
+function gerarSenha() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*";
+    let senha = "";
+    for (let i = 0; i < 10; i++) {
+        senha += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    document.getElementById("senha").value = senha;
+    document.getElementById("confirmar").value = senha;
+}
+
+function toggleSenha() {
+    const campo = document.getElementById("senha");
+    campo.type = campo.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>

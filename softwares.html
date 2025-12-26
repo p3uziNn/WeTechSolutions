@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Softwares Profissionais — We Tech Solutions</title>
+  <style>
+/* ===== Theme colors ===== */
+:root {
+  --bg: #000000;
+  --surface: rgba(255, 255, 255, 0.03);
+  --muted: rgba(255, 255, 255, 0.6);
+  --white: #ffffff;
+  --purple-1: #7b61ff;
+  --purple-2: #5e17eb;
+  --radius: 20px;
+}
+
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, 'Poppins';
+  background: var(--bg);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased
+}
+
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(180deg, #000 0%, #070306 60%)
+}
+
+.glow {
+  position: absolute;
+  left: 50%;
+  top: 6%;
+  width: 580px;
+  height: 580px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(123, 97, 255, 0.12) 0%, rgba(0, 0, 0, 0) 45%);
+  filter: blur(56px);
+  pointer-events: none;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  gap: 16px
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px
+}
+
+.logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  display: block
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 28px
+}
+
+nav a {
+  position: relative;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 0
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--purple-1), var(--purple-2));
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform .32s cubic-bezier(.2, .9, .2, 1)
+}
+
+nav a:hover::after {
+  transform: translateX(-50%) scaleX(1)
+}
+
+nav a:hover {
+  color: var(--white)
+}
+
+.ctas {
+  display: flex;
+  gap: 12px;
+  align-items: center
+}
+
+.btn {
+  border: 0;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--surface);
+  color: var(--white);
+  backdrop-filter: blur(6px);
+  transition: transform .14s ease, box-shadow .14s ease
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, var(--purple-1), var(--purple-2));
+  box-shadow: 0 8px 30px rgba(94, 23, 235, 0.22)
+}
+
+.btn.is-pressed {
+  transform: scale(1.06)
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .6s ease, transform .6s ease
+}
+
+.fade-up.is-visible {
+  opacity: 1;
+  transform: none
+}
+
+.intro {
+  text-align: center;
+  max-width: 900px;
+  margin: 40px auto 20px;
+  padding: 0 20px
+}
+
+.intro h2 {
+  font-size: 38px;
+  line-height: 1.1
+}
+
+.intro p {
+  color: var(--muted);
+  margin-top: 12px;
+  font-size: 16px
+}
+
+.grid {
+  max-width: 1100px;
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  padding: 0 20px
+}
+
+/* 🔥 Alinhamento perfeito dos cards */
+.card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  transition: transform .3s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-6px)
+}
+
+/* 🔧 Correção: alinhar imagens dos cards */
+.card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 10px auto; /* centraliza perfeitamente */
+}
+
+.card h3 {
+  margin: 10px 0 6px
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+
+  flex-grow: 1;
+  margin-bottom: 14px;
+}
+
+.card .btn {
+  margin-top: auto;
+  display: inline-block;
+  text-decoration: none
+}
+
+footer {
+  margin-top: 60px;
+  padding: 36px 20px;
+  color: var(--muted);
+  text-align: center
+}
+
+@media(max-width:600px) {
+  nav {
+    display: none
+  }
+
+  .intro h2 {
+    font-size: 28px
+  }
+}
+
+.ctas a,
+.ctas button,
+.ctas .btn {
+  text-decoration: none !important;
+}
+
+/* ===========================
+   🍔 MENU HAMBÚRGUER (MOBILE)
+=========================== */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: var(--white);
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+/* Animação ícone X */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Menu mobile */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: rgba(10, 10, 10, 0.95);
+  width: 70%;
+  height: 100%;
+  padding: 80px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  backdrop-filter: blur(6px);
+  z-index: 998;
+}
+
+.mobile-menu a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Menu aberto */
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+/* Mostrar hambúrguer só no mobile */
+@media (max-width: 600px) {
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* 🔥 Ocultar CTAs e área do usuário no mobile */
+@media (max-width: 600px) {
+  .ctas,
+  #user-box {
+    display: none !important;
+  }
+
+  header {
+    padding: 20px;
+  }
+
+  nav {
+    display: none !important;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <div class="page-bg">
+    <div class="glow"></div>
+  </div>
+
+  <header>
+    <div class="brand">
+      <img src="IMG/LOGO COM BORDAS.png" alt="Logo We Tech Solutions" class="logo-img">
+      <div>
+        <div style="font-size:14px;font-weight:700">We Tech Solutions</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="softwares.html" style="color:var(--white)">Softwares</a>
+      <a href="planilhas.html">Planilhas</a>
+      <a href="sobre.html">Sobre Nós</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+
+    <div class="ctas">
+      <a href="login.html" class="btn ghost" id="btn-sign">Entrar</a>
+      <a href="cadastro.html" class="btn primary" id="btn-demo">Cadastrar-se</a>
+    </div>
+    
+    <div id="user-box" style="display:none; gap: 10px; align-items: center;">
+      <span id="usuario-nome" style="color:white; font-weight:600;"></span>
+      <a id="btn-sair" class="btn danger" style="cursor:pointer;">Sair</a>
+    </div> 
+          <!-- Botão Hambúrguer (Mobile) -->
+<button id="hamburger" class="hamburger" aria-label="Abrir Menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- Menu Mobile -->
+<nav id="mobile-menu" class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="softwares.html">Softwares</a>
+  <a href="planilhas.html">Planilhas</a>
+  <a href="sobre.html">Sobre Nós</a>
+  <a href="contato.html">Contato</a>
+</nav>
+  </header>
+
+  <main>
+    <section class="intro fade-up">
+      <h2>Softwares criados para acelerar o crescimento do seu negócio</h2>
+      <p>Nossos sistemas oferecem automação real, interfaces rápidas e funcionalidades que reduzem trabalho manual e
+        aumentam sua performance diária.</p>
+    </section>
+
+    <!-- ======================= NOVOS CARDS ========================== -->
+
+    <section id="produtos" class="grid fade-up">
+
+      <!-- 13 - GED / Documentos -->
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
+        <h3>GED — Gestão Eletrônica de Documentos</h3>
+        <p>Sistema inteligente para organizar arquivos, localizar tudo em segundos e manter o acesso seguro da equipe.</p>
+        <a href="ged.html" class="btn primary">Conhecer Software</a>
+      </div>      
+
+      <!-- 7 - Projetos -->
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906175.png">
+        <h3>Gerenciador de Projetos</h3>
+        <p>Planejamento visual, quadros, tarefas, prazos e automações para equipes de qualquer tamanho.</p>
+        <a href="gestaodeprojetos.html" class="btn primary">Conhecer Software</a>
+      </div>
+
+      <!-- 12 - Estoque / Logística -->
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2303/2303984.png">
+        <h3>Gestor de Estoque & Logística</h3>
+        <p>Controle total de entrada, saída, inventário e rastreio, reduzindo perdas e aumentando a eficiência.</p>
+        <a href="gestaodeestoque.html" class="btn primary">Conhecer Software</a>
+      </div>
+
+      <!-- 5 - RH / Folha -->
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3449/3449698.png">
+        <h3>Sistema de RH & Folha</h3>
+        <p>Rotina de colaboradores, ponto, benefícios, folha e documentos em um sistema ágil e automatizado.</p>
+        <a href="rhfolha.html" class="btn primary">Conhecer Software</a>
+      </div>
+
+      <!-- 4 - Financeiro / Contábil -->
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331966.png">
+        <h3>Financeiro & Contabilidade Pro</h3>
+        <p>Fluxo de caixa, contas, relatórios automáticos e integração bancária para máxima precisão.</p>
+        <a href="sistemafinanceiro.html" class="btn primary">Conhecer Software</a>
+      </div>
+
+      <!-- 1 - ERP -->
+      <div class="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2920/2920083.png">
+        <h3>ERP — Sistema Integrado</h3>
+        <p>Finanças, estoque, vendas, fiscal e operações conectados em um único ambiente completo.</p>
+        <a href="erp.html" class="btn primary">Conhecer Software</a>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <div>We Tech Solutions — Tecnologias que impulsionam resultados reais</div>
+    <div style="margin-top:8px;color:var(--muted)">© 2025 We Tech Solutions. Todos os direitos reservados.</div>
+  </footer>
+
+  <script>
+    // Botões com efeito "press"
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('mousedown', () => btn.classList.add('is-pressed'));
+      document.addEventListener('mouseup', () =>
+        document.querySelectorAll('.btn.is-pressed').forEach(b => b.classList.remove('is-pressed'))
+      );
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') btn.classList.add('is-pressed');
+      });
+      btn.addEventListener('keyup', () => btn.classList.remove('is-pressed'));
+    });
+  
+    // Animação de entrada "fade-up"
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.12 });
+  
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+  
+    // Menu Hambúrguer
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobile-menu");
+  
+    const savedState = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("menu="))
+      ?.split("=")[1];
+  
+    if (savedState === "open") {
+      hamburger.classList.add("active");
+      mobileMenu.classList.add("open");
+    }
+  
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      mobileMenu.classList.toggle("open");
+  
+      const state = mobileMenu.classList.contains("open") ? "open" : "closed";
+      document.cookie = `menu=${state}; path=/; max-age=${7 * 24 * 60 * 60}`;
+    });
+  
+    // ---------------------------------------------------------
+    // 🔥 SISTEMA DE LOGIN: TROCAR BOTÃO
+    // ---------------------------------------------------------
+  
+    function getCookie(name) {
+      return document.cookie
+        .split("; ")
+        .find(row => row.startsWith(name + "="))
+        ?.split("=")[1];
+    }
+  
+    // IDs reais do seu HTML
+    const loginBtn = document.getElementById("btn-sign");    // botão Entrar
+    const cadastroBtn = document.getElementById("btn-demo"); // botão Cadastrar-se
+    const userBox = document.getElementById("user-box");     // área do usuário
+    const logoutBtn = document.getElementById("btn-sair");   // botão Sair
+  
+    // 🔹 LER COOKIE CORRETO (user)
+    const usuario = getCookie("user");
+  
+    if (usuario) {
+      // Esconde botões de entrar e cadastro
+      if (loginBtn) loginBtn.style.display = "none";
+      if (cadastroBtn) cadastroBtn.style.display = "none";
+  
+      // Mostra nome + sair
+      if (userBox) {
+        userBox.style.display = "flex";
+        document.getElementById("usuario-nome").textContent = usuario;
+      }
+    }
+  
+    // Botão sair
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        document.cookie = "user=; path=/; max-age=0"; // apagar cookie
+        location.reload();
+      });
+    }
+  </script> 
+</body>
+
+</html>
